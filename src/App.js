@@ -17,7 +17,7 @@ class App extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let newTodos = this.state.todos;
-
+    if (!this.state.taskInput) return
     newTodos.push({
       task:this.state.taskInput,
       completion: false
@@ -41,8 +41,8 @@ class App extends Component {
         </form>
         
         <ul>
-          {this.state.todos.map((task) => !task.completion
-            ?<Todo task={task.task} />
+          {this.state.todos.map((taskObj) => !taskObj.completion
+            ?<Todo task={taskObj.task} />
             :null
           )}
         </ul>
