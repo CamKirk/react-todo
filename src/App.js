@@ -36,7 +36,7 @@ class App extends Component {
     let id = e.target.id;
     let todolist = this.state.todos
 
-    todolist[id].completion = true;
+    todolist[id].completion = todolist[id].completion ? false:true;
 
     this.setState({
       todolist
@@ -60,8 +60,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">Todo List React</header>
+        <h1 className="App-header">Todo List React</h1>
+        <h4>Active Todo's: {this.todoFilter("active").length}</h4>
         <button onClick={this.toggleMode}>Toggle Mode</button>
+        <h4>Mode: {this.state.viewMode}</h4>
         <form>
           <input value={this.state.taskInput} onChange={this.handleInput} />
 
