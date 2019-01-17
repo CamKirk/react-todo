@@ -21,6 +21,7 @@ class App extends Component {
     newTodos.push(this.state.taskInput);
 
     this.setState({
+      taskInput:"",
       todos: newTodos
     });
   };
@@ -30,10 +31,11 @@ class App extends Component {
       <div className="App">
         <header className="App-header">Todo List React</header>
         
-        <input onChange={this.handleInput} />
+        <form>
+        <input value={this.state.taskInput} onChange={this.handleInput} />
 
         <button type="submit" onClick={this.handleSubmit}>Add task</button>
-
+        </form>
         <ul>
           {this.state.todos.map((task) => <Todo task={task} />)}
         </ul>
