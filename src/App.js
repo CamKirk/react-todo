@@ -18,10 +18,13 @@ class App extends Component {
     e.preventDefault();
     let newTodos = this.state.todos;
 
-    newTodos.push(this.state.taskInput);
+    newTodos.push({
+      task:this.state.taskInput,
+      completion: false
+    });
 
     this.setState({
-      taskInput:"",
+      taskInput: "",
       todos: newTodos
     });
   };
@@ -30,15 +33,20 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">Todo List React</header>
-        
-        <form>
-        <input value={this.state.taskInput} onChange={this.handleInput} />
 
-        <button type="submit" onClick={this.handleSubmit}>Add task</button>
+        <form>
+          <input value={this.state.taskInput} onChange={this.handleInput} />
+
+          <button type="submit" onClick={this.handleSubmit}>Add task</button>
         </form>
+        
         <ul>
-          {this.state.todos.map((task) => <Todo task={task} />)}
+          {this.state.todos.map((task) => !task.completion
+            ?<Todo task={task.task} />
+            :null
+          )}
         </ul>
+
       </div>
     );
   }
