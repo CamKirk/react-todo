@@ -4,28 +4,39 @@ import Todo from './Todo.js';
 
 class App extends Component {
   state = {
-    todos:[],
-    taskInput:""
+    todos: [],
+    taskInput: ""
   };
 
-  handleInput = (e) =>{
+  handleInput = (e) => {
     this.setState({
       taskInput: e.target.value
-    })
-  }
+    });
+  };
 
-  handleSubmit = (e) =>{
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let newTodos = this.state.todos;
 
-  }
+    newTodos.push(this.state.taskInput);
+
+    this.setState({
+      todos: newTodos
+    });
+  };
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="App-header">Todo List React</header>
         
-        </header>
         <input onChange={this.handleInput} />
-        <Todo task="theoretical" />
+
+        <button type="submit" onClick={this.handleSubmit}>Add task</button>
+
+        <ul>
+          {this.state.todos.map((task) => <Todo task={task} />)}
+        </ul>
       </div>
     );
   }
