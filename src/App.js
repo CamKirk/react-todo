@@ -5,7 +5,8 @@ import Todo from './Todo.js';
 class App extends Component {
   state = {
     todos: [],
-    taskInput: ""
+    taskInput: "",
+    viewMode: "active"
   };
 
   handleInput = (e) => {
@@ -19,9 +20,9 @@ class App extends Component {
     let newTodos = this.state.todos;
     if (!this.state.taskInput) return
     newTodos.push({
-      task:this.state.taskInput,
+      task: this.state.taskInput,
       completion: false,
-      id : newTodos.length
+      id: newTodos.length
     });
 
     this.setState({
@@ -40,30 +41,38 @@ class App extends Component {
     this.setState({
       todolist
     });
-    
-  }
+
+  };
+
+  todoFilter = (mode, todoList = this.state.todos) => {
+    return (
+      (mode === "active")
+        ? todoList.filter((task) => !task.completion)
+        : todoList.filter((task) => task.completion)
+    );
+  };
+
+  toggleMode = () =>{
+    let mode = (this.state.viewMode === "active") ? "completed" : "active";
+    this.setState({viewMode:mode});
+  };
 
   render() {
     return (
       <div className="App">
         <header className="App-header">Todo List React</header>
-
+        <button onClick={this.toggleMode}>Toggle Mode</button>
         <form>
           <input value={this.state.taskInput} onChange={this.handleInput} />
 
           <button type="submit" onClick={this.handleSubmit}>Add task</button>
         </form>
-        
+
         <ul>
-          {this.state.todos.map((taskObj) => 
-          
-          taskObj.completion
-            ?null
-            :<Todo task={taskObj.task} key={taskObj.id} onClick={this.handleCompletion} id={taskObj.id}/>
-          
-          )}
+          {this.todoFilter(this.state.viewMode).map((taskObj) =>
+              <Todo task={taskObj.task} key={taskObj.id} onClick={this.handleCompletion} id={taskObj.id} />)}
         </ul>
- 
+
       </div>
     );
   }
