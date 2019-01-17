@@ -20,7 +20,8 @@ class App extends Component {
     if (!this.state.taskInput) return
     newTodos.push({
       task:this.state.taskInput,
-      completion: false
+      completion: false,
+      id : newTodos.length
     });
 
     this.setState({
@@ -28,6 +29,19 @@ class App extends Component {
       todos: newTodos
     });
   };
+
+  handleCompletion = (e) => {
+    console.log(e.target.id);
+    let id = e.target.id;
+    let todolist = this.state.todos
+
+    todolist[id].completion = true;
+
+    this.setState({
+      todolist
+    });
+    
+  }
 
   render() {
     return (
@@ -41,12 +55,15 @@ class App extends Component {
         </form>
         
         <ul>
-          {this.state.todos.map((taskObj) => !taskObj.completion
-            ?<Todo task={taskObj.task} />
-            :null
+          {this.state.todos.map((taskObj) => 
+          
+          taskObj.completion
+            ?null
+            :<Todo task={taskObj.task} key={taskObj.id} onClick={this.handleCompletion} id={taskObj.id}/>
+          
           )}
         </ul>
-
+ 
       </div>
     );
   }
