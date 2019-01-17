@@ -1,11 +1,5 @@
 import React from 'react';
 
-function Todo(props) {
-
-
-    return(
-        <li>Free p tags: {props.task}</li>
-    ) 
-}
+const Todo = (props) => <li>{props.task}</li>
 
 export default Todo;
