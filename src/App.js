@@ -4,10 +4,19 @@ import Todo from './Todo.js';
 
 class App extends Component {
   state = {
-    todos:[]
+    todos:[],
+    taskInput:""
   };
 
+  handleInput = (e) =>{
+    this.setState({
+      taskInput: e.target.value
+    })
+  }
 
+  handleSubmit = (e) =>{
+
+  }
 
   render() {
     return (
@@ -15,6 +24,7 @@ class App extends Component {
         <header className="App-header">
         
         </header>
+        <input onChange={this.handleInput} />
         <Todo task="theoretical" />
       </div>
     );
